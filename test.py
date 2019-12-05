@@ -1,24 +1,18 @@
-import os
-from flask import Flask, render_template
+{% extends 'base.html' %} {% block content %}
+<h2>{{ page_title }}</h2>
 
-app = Flask(__name__)
+<p>The formation of the group grew out of a meeting Gandalf had with Thorin in Bree which kindled Thorin's interest in recapturing his long lost family inheritance. Remembering that he had once known an adventurous Hobbit on his travels in The Shire, Gandalf
+    decided to add Bilbo to their company because he knew that stealth and cunning were preferable to force. Gandalf also believed that someone like Bilbo could keep the sometimes prideful and stubborn Dwarves from rash action. The superstitious Dwarves
+    also considered thirteen to be an unlucky number, and as Gandalf had planned to leave on other business, welcomed a fourteenth to fill in to their party.</p>
 
-
-@app.route('/')
-def index():
-    return render_template("index.html")
-
-
-@app.route('/about')
-def about():
-    return render_template("about.html")
-
-
-@app.route('/contact')
-def contact():
-    return render_template("contact.html")
-
-if __name__ == '__main__':
-    app.run(host=os.environ.get('IP'),
-            port=int(os.environ.get('PORT')),
-            debug=True)
+{% for member in company %}
+<div class="row featurette">
+    <div class="col-md-7">
+        <h3>{{ member.name }}</h3>
+        <p>{{ member.description }}</p>
+    </div>
+    <div class="col-md-5">
+        <img class="featurette-image img-responsive" src="{{ member.image_source }}" alt="Picture of {{ member.name }}">
+    </div>
+</div>
+<hr class="featurette-divider"> {% endfor %} {% endblock %}
